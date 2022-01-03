@@ -5,7 +5,8 @@ const ObjectId = require("mongodb").ObjectId;
 const port = process.env.PORT || 5000
 var cors = require('cors')
 require('dotenv').config()
-
+const multer = require('multer')
+const upload = multer({ dest: 'uploads/' })
 app.use(cors())
 app.use(express.json())
 
@@ -21,6 +22,10 @@ async function run() {
 
         app.get("/products", async (req, res) => {
             res.send("what is this")
+        })
+
+        app.get("/success", async (req, res) => {
+            res.send("success page finaly")
         })
     } finally {
         // Ensures that the client will close when you finish/error
