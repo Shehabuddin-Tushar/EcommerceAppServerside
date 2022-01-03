@@ -35,10 +35,10 @@ async function run() {
                 total_amount: 100,
                 currency: 'BDT',
                 tran_id: 'REF123',
-                success_url: `${port}/success`,
-                fail_url: `${port}/fail`,
-                cancel_url: `${port}/cancel`,
-                ipn_url: `${port}/ipn`,
+                success_url: `${process.env.PORT}/success`,
+                fail_url: `${process.env.PORT}/fail`,
+                cancel_url: `${process.env.PORT}/cancel`,
+                ipn_url: `${process.env.PORT}/ipn`,
                 shipping_method: 'Courier',
                 product_name: 'Computer.',
                 product_category: 'Electronic',
@@ -106,7 +106,7 @@ run().catch(console.dir);
 
 
 app.get('/', (req, res) => {
-    res.send('Hello World! two')
+    res.send('Hello World!two')
 })
 
 app.listen(port, () => {
