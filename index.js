@@ -3,9 +3,9 @@ const app = express()
 const SSLCommerzPayment = require('sslcommerz') 
 const { MongoClient } = require('mongodb');
 const ObjectId = require("mongodb").ObjectId;
-const port = process.env.PORT || 5000
 var cors = require('cors')
 require('dotenv').config()
+const port = process.env.PORT || 5000
 const multer = require('multer')
 const upload = multer({ dest: 'uploads/' })
 app.use(cors())
@@ -35,10 +35,10 @@ async function run() {
                 total_amount: 100,
                 currency: 'BDT',
                 tran_id: 'REF123',
-                success_url: `${process.env.PORT}/success`,
-                fail_url: `${process.env.PORT}/fail`,
-                cancel_url: `${process.env.PORT}/cancel`,
-                ipn_url: `${process.env.PORT}/ipn`,
+                success_url: `${port}/success`,
+                fail_url: `${port}/fail`,
+                cancel_url: `${port}/cancel`,
+                ipn_url: `${port}/ipn`,
                 shipping_method: 'Courier',
                 product_name: 'Computer.',
                 product_category: 'Electronic',
