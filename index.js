@@ -29,11 +29,7 @@ async function run() {
 
         })
       
-       app.get("/allproduct", async (req, res) => {
-
-        res.send("allproduct")
-
-       })
+       
       
       app.get("/manageproduct", async (req, res) => {
 
@@ -59,6 +55,14 @@ async function run() {
         app.get("/products", async (req, res) => {
                const result=await products.find({}).toArray();
                res.send(result)
+        })
+
+      app.delete("/productdelete/:id", async (req, res) => {
+             let id = req.params.id;
+             console.log(id)
+             const query = { _id:ObjectId(id) };
+             const result = await products.deleteOne(query); 
+             res.send(result)
         })
 
       app.get("/singleproduct/:id", async (req, res) => {
