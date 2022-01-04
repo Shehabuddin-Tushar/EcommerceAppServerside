@@ -138,7 +138,7 @@ async function run() {
           });
        
           //make admin
-        app.put("/users/admin", verifyToken, async (req, res) => {
+        app.put("/users/admin", async (req, res) => {
         const user = req.body;
         const requester = req.decodedEmail;
         if (requester) {
