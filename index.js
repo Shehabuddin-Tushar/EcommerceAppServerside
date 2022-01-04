@@ -34,6 +34,12 @@ async function run() {
             res.send(result);
         });
 
+        app.get("/cartproductshow", async (req, res) => {
+            const query = { email: req.body.email }
+            const result = await addtocart.find(query).toArray();
+            res.send(result)
+        });
+
        
       
        
