@@ -86,6 +86,15 @@ async function run() {
             const result = await addtocart.insertOne(req.body);
             res.send(result);
          });
+
+
+      app.delete("/cartproductdelete/:id", async (req, res) => {
+        let id = req.params.id;
+        console.log(id)
+        const query = { _id: ObjectId(id) };
+        const result = await addtocart.deleteOne(query);
+        res.send(result)
+      })
         //stripe cdoe
         app.post("/create-payment-intent", async (req, res) => {
             const paymentInfo = req.body;
