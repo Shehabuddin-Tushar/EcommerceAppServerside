@@ -4,7 +4,7 @@ const app = express()
 const ObjectId = require("mongodb").ObjectId;
 var cors = require('cors')
 require('dotenv').config()
-const stripe = require("stripe")(process.env.PAYMENT_STRIPE_SECRETE_KEY)
+const stripe = require("stripe")(process.env.STRIPE_SECRET)
 const port = process.env.PORT || 5000
 const multer = require('multer')
 const upload = multer({ dest: 'uploads/' })
