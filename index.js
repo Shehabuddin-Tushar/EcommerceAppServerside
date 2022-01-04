@@ -22,18 +22,66 @@ async function run() {
         const addtocart = database.collection('addtocart');
         const usersCollection = database.collection('users');
 
+      
+       app.get("/addproduct", async (req,res) => {
+          
+           res.send("addproduct")
+
+        })
+      
+       app.get("/allproduct", async (req, res) => {
+
+        res.send("allproduct")
+
+       })
+      
+      app.get("/manageproduct", async (req, res) => {
+
+        res.send("manageproduct")
+
+      })
+
+
+      
+
+
+
+
+
+
+
+      
+      
+      // dashboard work end
+      
+      
+      
         app.get("/products", async (req, res) => {
                const result=await products.find({}).toArray();
                res.send(result)
         })
 
+      app.get("/singleproduct/:id", async (req, res) => {
+               const id = req.params.id;
+               const query = { _id: ObjectId(id) }
+               const product = await products.findOne(query);
+              res.send(product)
+        })
 
+      app.get("/categoryproduct/:category", async (req, res) => {
+        const category= req.params.category;
+        const query = { category: category }
+        const result = await products.find(query).toArray();
+        res.send(result)
+       })
+
+       
         
 
         app.post("/addtocart", async (req, res) => {
             const result = await addtocart.insertOne(req.body);
             res.send(result);
-        });
+         });
         //stripe cdoe
         app.post("/create-payment-intent", async (req, res) => {
             const paymentInfo = req.body;
@@ -46,8 +94,10 @@ async function run() {
             res.json({ clientSecret: paymentIntent.client_secret });
           });
 
-        app.get("/cartproductshow", async (req, res) => {
-            const query = { email: req.body.email }
+        app.get("/cartproductshow/:email", async (req, res) => {
+            const email=req.params.email
+            
+            const query = { email: email }
             const result = await addtocart.find(query).toArray();
             res.send(result)
         });
