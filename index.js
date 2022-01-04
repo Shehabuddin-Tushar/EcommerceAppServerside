@@ -51,8 +51,27 @@ async function run() {
             res.send(result)
         });
 
-       
-      
+        //getting user info
+        app.get("/users/:email", async (req, res) => {
+            const email = req.params.email;
+            const query = { email: email };
+            const user = await usersCollection.findOne(query);
+            let isAdmin = false;
+            if (user?.role === "admin") {
+              isAdmin = true;
+            }
+            res.json({ admin: isAdmin });
+          });
+          
+          //adding user on sign in 
+          app.post("/users", async (req, res) => {
+            const user = req.body;
+            console.log(user);
+            const result = await usersCollection.insertOne(user);
+            console.log(result);
+            res.json(result);
+          });
+          
        
 
         
