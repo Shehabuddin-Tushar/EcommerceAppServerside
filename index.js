@@ -139,21 +139,13 @@ async function run() {
        
           //make admin
         app.put("/users/admin", async (req, res) => {
-        const user = req.body;
-        const requester = req.decodedEmail;
-        if (requester) {
-          const requesterAccount = await usersCollection.findOne({
-            email: requester,
-          });
-          if (requesterAccount.role === "admin") {
+            const user = req.body;
             const filter = { email: user.email };
             const updateDoc = { $set: { role: "admin" } };
             const result = await usersCollection.updateOne(filter, updateDoc);
             res.json(result);
-          }
-        } else {
-          res.status(403).json({ message: "Permission denied" });
-        }
+          
+         
       });
         
     } finally {
