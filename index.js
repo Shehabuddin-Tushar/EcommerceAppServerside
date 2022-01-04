@@ -44,6 +44,14 @@ async function run() {
             });
             res.json({ clientSecret: paymentIntent.client_secret });
           });
+
+        app.get("/cartproductshow", async (req, res) => {
+            const query = { email: req.body.email }
+            const result = await addtocart.find(query).toArray();
+            res.send(result)
+        });
+
+       
       
        
 
