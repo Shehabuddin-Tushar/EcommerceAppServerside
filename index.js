@@ -20,6 +20,7 @@ async function run() {
         const database = client.db('Ecommerce');
         const products = database.collection('products');
         const addtocart = database.collection('addtocart');
+        const usersCollection = database.collection('users');
 
         app.get("/products", async (req, res) => {
                const result=await products.find({}).toArray();
