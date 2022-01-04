@@ -33,8 +33,17 @@ async function run() {
             const result = await addtocart.insertOne(req.body);
             res.send(result);
         });
-
-       
+        //stripe cdoe
+        app.post("/create-payment-intent", async (req, res) => {
+            const paymentInfo = req.body;
+            const amount = paymentInfo.rent * 100;
+            const paymentIntent = await stripe.paymentIntents.create({
+              currency: "usd",
+              amount: amount,
+              payment_method_types: ["card"],
+            });
+            res.json({ clientSecret: paymentIntent.client_secret });
+          });
       
        
 
