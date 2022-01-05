@@ -120,7 +120,7 @@ async function run() {
         //stripe cdoe
         app.post("/create-payment-intent", async (req, res) => {
             const paymentInfo = req.body;
-            const amount = paymentInfo.rent * 100;
+            const amount = paymentInfo.fees * 100;
             const paymentIntent = await stripe.paymentIntents.create({
               currency: "usd",
               amount: amount,
