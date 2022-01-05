@@ -102,7 +102,7 @@ async function run() {
         res.send(result)
       })
 
-      app.delete("/cartproductdelete/:eamil", async (req, res) => {
+      app.delete("/cartproductdelete/:email", async (req, res) => {
         let email = req.params.email;
         console.log(email)
         const query = { email: email };
