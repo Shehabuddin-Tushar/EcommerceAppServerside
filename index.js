@@ -23,9 +23,9 @@ async function run() {
         const usersCollection = database.collection('users');
 
       
-       app.get("/addproduct", async (req,res) => {
+       app.post("/addproduct", async (req,res) => {
           
-           res.send("addproduct")
+           console.log(req.body)
 
         })
       
