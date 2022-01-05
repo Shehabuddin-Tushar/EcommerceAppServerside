@@ -20,6 +20,7 @@ async function run() {
         const database = client.db('Ecommerce');
         const products = database.collection('products');
         const addtocart = database.collection('addtocart');
+        const ordersCollection = database.collection('orders');
         const usersCollection = database.collection('users');
 
       
@@ -84,6 +85,11 @@ async function run() {
 
         app.post("/addtocart", async (req, res) => {
             const result = await addtocart.insertOne(req.body);
+            res.send(result);
+         });
+
+        app.post("/saveoder", async (req, res) => {
+            const result = await ordersCollection.insertOne(req.body);
             res.send(result);
          });
 
