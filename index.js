@@ -101,6 +101,15 @@ async function run() {
         const result = await addtocart.deleteOne(query);
         res.send(result)
       })
+
+      app.delete("/cartproductdelete/:eamil", async (req, res) => {
+        let email = req.params.email;
+        console.log(email)
+        const query = { email: email };
+        const result = await addtocart.deleteMany(query);
+        res.send(result)
+      })
+
         //stripe cdoe
         app.post("/create-payment-intent", async (req, res) => {
             const paymentInfo = req.body;
@@ -115,11 +124,11 @@ async function run() {
 
         app.get("/cartproductshow/:email", async (req, res) => {
             const email=req.params.email
-            
             const query = { email: email }
             const result = await addtocart.find(query).toArray();
             res.send(result)
         });
+
 
         //getting user info
         app.get("/users/:email", async (req, res) => {
