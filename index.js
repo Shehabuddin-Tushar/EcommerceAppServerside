@@ -28,7 +28,8 @@ async function run() {
       
        app.post("/addproduct", async (req,res) => {
           
-           console.log(req.body)
+         const result = await products.insertOne(req.body);
+         res.send(result);
 
         })
       
@@ -57,6 +58,11 @@ async function run() {
       
         app.get("/products", async (req, res) => {
                const result=await products.find({}).toArray();
+               res.send(result)
+        })
+
+        app.get("allorders", async (req, res) => {
+               const result = await ordersCollection.find({}).toArray();
                res.send(result)
         })
 
@@ -112,24 +118,25 @@ async function run() {
       })
 
       app.delete("/cartproductdelete/:email", async (req, res) => {
-        let email = req.params.email;
-        console.log(email)
-        const query = { email: email };
+        let emails = req.params.email;
+        console.log(emails)
+       
+        const query = { email: emails };
         const result = await addtocart.delete(query);
         res.send(result)
       })
 
         //stripe cdoe
-        app.post("/create-payment-intent", async (req, res) => {
-            const paymentInfo = req.body;
-            const amount = paymentInfo.fees * 100;
-            const paymentIntent = await stripe.paymentIntents.create({
-              currency: "usd",
-              amount: amount,
-              payment_method_types: ["card"],
-            });
-            res.json({ clientSecret: paymentIntent.client_secret });
-          });
+        // app.post("/create-payment-intent", async (req, res) => {
+        //     const paymentInfo = req.body;
+        //     const amount = paymentInfo.fees * 100;
+        //     const paymentIntent = await stripe.paymentIntents.create({
+        //       currency: "usd",
+        //       amount: amount,
+        //       payment_method_types: ["card"],
+        //     });
+        //     res.json({ clientSecret: paymentIntent.client_secret });
+        //   });
 
         app.get("/cartproductshow/:email", async (req, res) => {
             const email=req.params.email
