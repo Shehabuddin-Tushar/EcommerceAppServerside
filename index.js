@@ -115,7 +115,7 @@ async function run() {
         let email = req.params.email;
         console.log(email)
         const query = { email: email };
-        const result = await addtocart.deleteMany(query);
+        const result = await addtocart.delete(query);
         res.send(result)
       })
 
