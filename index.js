@@ -61,10 +61,18 @@ async function run() {
                res.send(result)
         })
 
-        app.get("allorders", async (req, res) => {
+        app.get("/allorders", async (req, res) => {
                const result = await ordersCollection.find({}).toArray();
                res.send(result)
         })
+
+      app.get("/allorders/:email", async (req, res) => {
+        let myemail = req.params.email
+        console.log(myemail)
+        const query={email:myemail}
+        const result = await ordersCollection.find(query).toArray();
+        res.send(result)
+      })
 
       app.delete("/productdelete/:id", async (req, res) => {
              let id = req.params.id;
@@ -78,7 +86,7 @@ async function run() {
                const id = req.params.id;
                const query = { _id: ObjectId(id) }
                const product = await products.findOne(query);
-              res.send(product)
+               res.send(product)
         })
 
       app.get("/categoryproduct/:category", async (req, res) => {
@@ -120,9 +128,8 @@ async function run() {
       app.delete("/cartproductdelete/:email", async (req, res) => {
         let emails = req.params.email;
         console.log(emails)
-       
-        const query = { email: emails };
-        const result = await addtocart.delete(query);
+        
+        const result = await addtocart.deleteMany({ email: emails });
         res.send(result)
       })
 
@@ -172,7 +179,7 @@ async function run() {
             const filter = { email: user.email };
             const options = { upsert: true };
             const updateDoc = { $set: user };
-            console.log("put", user);
+           
             const result = await usersCollection.updateOne(
               filter,
               updateDoc,
